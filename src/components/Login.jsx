@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
@@ -53,6 +53,7 @@ export default function Login() {
           type="email"
           onChange={handleChange}
           value={form.email}
+          data-cy="email"
         />
       </FormGroup>
       <FormGroup>
@@ -64,6 +65,7 @@ export default function Login() {
           type="password"
           onChange={handleChange}
           value={form.password}
+          data-cy="password"
         />
       </FormGroup>
       {/* reactstrap checkbox ekleyelim*/}
@@ -79,6 +81,15 @@ export default function Login() {
           I agree to terms of service and privacy policy
         </Label>
       </FormGroup>
+      {errors.length > 0 && (
+        <div data-cy="error">
+          {errors.map((error, index) => (
+            <Alert color="danger" key={index}>
+              {error}
+            </Alert>
+          ))}
+        </div>
+      )}
 
       <FormGroup className="text-center p-4">
         <Button disabled={!form.terms} color="primary">
